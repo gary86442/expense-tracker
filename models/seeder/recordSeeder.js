@@ -11,7 +11,7 @@ const records = [
   { name: "房租", date: "2023/03/05", amount: 15000, category: "家居物業" },
   { name: "月票", date: "2023/03/08", amount: 1280, category: "交通出行" },
   { name: "電影票", date: "2023/03/15", amount: 450, category: "休閒娛樂" },
-  { name: "午餐", date: "2023/03/01", amount: 100, category: "餐飲食品" },
+  { name: "午餐", date: "2023/03/02", amount: 100, category: "餐飲食品" },
   { name: "禮金", date: "2023/03/25", amount: 3600, category: "其他" },
 ];
 
@@ -27,7 +27,11 @@ db.once("open", () => {
           return Category.findOne({ name: record.category }).then(
             (category) => {
               const categoryId = category._id;
-              return Record.create({ ...record, userId, categoryId });
+              return Record.create({
+                ...record,
+                userId,
+                categoryId,
+              });
             }
           );
         })
