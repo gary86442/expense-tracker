@@ -15,6 +15,8 @@ app.engine("hbs", exphbs.engine({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", "hbs");
 //* 設定靜態路徑
 app.use(express.static("public"));
+//* 可讀取req.body, 搜尋方式是用字串
+app.use(express.urlencoded({ extended: true }));
 
 //* 使用路由器
 app.use(router);
