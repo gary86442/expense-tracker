@@ -10,6 +10,9 @@ const router = require("./routes");
 require("./config/mongoose");
 //* 載入method-override
 const methodOverride = require("method-override");
+//* 載入身分驗證相關
+const session = require("express-session");
+const usePassport = require("./config/passport");
 
 const PORT = process.env.PORT;
 const app = express();
@@ -31,6 +34,16 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 //* 路由語意化，關鍵字設定為 _method
 app.use(methodOverride("_method"));
+
+//* 使用者驗證相關
+app.use(
+  session({
+    secret: process.env.SESSION,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+usePassport(app);
 
 //* 使用路由器
 app.use(router);
