@@ -8,15 +8,29 @@ if (process.env.NODE_ENV !== "production") {
 const router = require("./routes");
 //* 載入資料庫
 require("./config/mongoose");
+//* 載入method-override
+const methodOverride = require("method-override");
+
 const PORT = process.env.PORT;
 const app = express();
 //* 設定模板引擎
-app.engine("hbs", exphbs.engine({ defaultLayout: "main", extname: ".hbs" }));
+app.engine(
+  "hbs",
+  exphbs.engine({
+    defaultLayout: "main",
+    extname: ".hbs",
+    helpers: {
+      match: (a, b) => a === b,
+    },
+  })
+);
 app.set("view engine", "hbs");
 //* 設定靜態路徑
 app.use(express.static("public"));
 //* 可讀取req.body, 搜尋方式是用字串
 app.use(express.urlencoded({ extended: true }));
+//* 路由語意化，關鍵字設定為 _method
+app.use(methodOverride("_method"));
 
 //* 使用路由器
 app.use(router);

@@ -19,4 +19,30 @@ router.post("/", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+//* 修改功能
+router.get("/:id/edit", (req, res) => {
+  const id = req.params.id;
+  Record.findById(id)
+    .lean()
+    .then((record) => {
+      record.date = record.date.toISOString().substring(0, 10);
+      Category.findById(record.categoryId).then((category) => {
+        record.category = category.name;
+        res.render("edit", { record });
+      });
+    });
+});
+
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+  const record = req.body;
+  Category.findOne({ name: record.category })
+    .then((category) => {
+      record.categoryId = category._id;
+      return Record.findByIdAndUpdate(id, { ...record });
+    })
+    .then(() => res.redirect("/"))
+    .catch((err) => console.log(err));
+});
+
 module.exports = router;
