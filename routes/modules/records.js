@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-//* 修改功能
+//* 修改支出紀錄
 router.get("/:id/edit", (req, res) => {
   const id = req.params.id;
   Record.findById(id)
@@ -41,6 +41,14 @@ router.put("/:id", (req, res) => {
       record.categoryId = category._id;
       return Record.findByIdAndUpdate(id, { ...record });
     })
+    .then(() => res.redirect("/"))
+    .catch((err) => console.log(err));
+});
+
+//* 刪除支出紀錄
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  Record.findByIdAndDelete(id)
     .then(() => res.redirect("/"))
     .catch((err) => console.log(err));
 });
