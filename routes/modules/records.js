@@ -10,9 +10,10 @@ router.get("/create", (req, res) => {
 
 router.post("/", (req, res) => {
   const record = req.body;
+  const userId = req.user._id;
   Category.findOne({ name: record.category })
     .then((category) => {
-      Record.create({ ...record, categoryId: category._id }).then(() =>
+      Record.create({ ...record, categoryId: category._id, userId }).then(() =>
         res.redirect("/")
       );
     })

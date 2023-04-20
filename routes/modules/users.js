@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const Record = require("../../models/Record");
 const passport = require("passport");
 
 router.get("/login", (req, res) => {
@@ -14,4 +13,10 @@ router.post(
     failureRedirect: "/users/login",
   })
 );
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    res.redirect("/users/login");
+  });
+});
 module.exports = router;
