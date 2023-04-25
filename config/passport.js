@@ -16,8 +16,8 @@ module.exports = (app) => {
           if (!user) return done(null, false, { message: "使用者不存在！" });
           bcrypt.compare(password, user.password).then((isMatch) => {
             if (isMatch) return done(null, user);
+            return done(null, false, { message: "密碼錯誤" });
           });
-          return done(null, false, { message: "密碼錯誤" });
         })
         .catch((err) => done(err, false));
     })
