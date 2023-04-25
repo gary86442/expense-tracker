@@ -61,8 +61,11 @@ npm run seed
 當 terminal 出現以下字樣，即表示種子資料已新增至資料庫。
 
 > Mongodb is connected!
+
 > categorySeed is done!
+
 > Mongodb is connected!
+
 > recordSeeder is done!
 
 6. 啟動伺服器，執行 app.js 檔案
