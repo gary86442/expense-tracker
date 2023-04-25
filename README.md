@@ -4,7 +4,7 @@
 
 ## 專案畫面
 
-![image](https://github.com/gary86442/expense-tracker/blob/main/public/index.png)
+![image](https://github.com/gary86442/expense-tracker/blob/main/public/img/index.png)
 
 ![image](https://github.com/gary86442/expense-tracker/blob/main/public/img/login.png)
 
