@@ -13,12 +13,11 @@ module.exports = (app) => {
     new localStrategy({ usernameField: "name" }, (name, password, done) => {
       User.findOne({ name })
         .then((user) => {
-          if (!user) return done(null, false, { message: "user doesn't exit" });
+          if (!user) return done(null, false, { message: "使用者不存在！" });
           bcrypt.compare(password, user.password).then((isMatch) => {
-            if (!isMatch)
-              return done(null, false, { message: "password is incorrect" });
+            if (isMatch) return done(null, user);
           });
-          return done(null, user);
+          return done(null, false, { message: "密碼錯誤" });
         })
         .catch((err) => done(err, false));
     })
